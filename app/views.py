@@ -115,7 +115,7 @@ def edit_student(request):
         sqlhelper.modify('update student set name=%s,class_id=%s where id=%s',[name,class_id,nid,])
         return redirect('/students/')
 
-
+#test
 def del_student(request):
     nid = request.GET.get('nid')
 
@@ -127,4 +127,3 @@ def del_student(request):
     conn.close()
     return  redirect('/students/')
 
-#test
