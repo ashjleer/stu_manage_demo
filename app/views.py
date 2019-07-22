@@ -126,3 +126,5 @@ def del_student(request):
     cursor.close()
     conn.close()
     return  redirect('/students/')
+
+#test
