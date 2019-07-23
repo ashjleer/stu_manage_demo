@@ -118,10 +118,9 @@ def edit_student(request):
         sqlhelper.modify('update student set name=%s,class_id=%s where id=%s',[name,class_id,nid,])
         return redirect('/students/')
 
-#test
+
 def del_student(request):
     nid = request.GET.get('nid')
-
     conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='root', db='db666', charset='utf8')
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
     cursor.execute("delete from student where id=%s", [nid, ])
@@ -131,7 +130,7 @@ def del_student(request):
     return  redirect('/students/')
 
 
-####################对话框#########################
+####################对话框######################
 
 def modal_add_class(request):
     title = request.POST.get('title')
@@ -154,3 +153,7 @@ def modal_edit_class(request):
         ret['message'] = str(e)
     import  json
     return HttpResponse(json.dumps(ret))
+
+
+def test():
+    pass
