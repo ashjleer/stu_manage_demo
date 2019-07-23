@@ -135,11 +135,9 @@ def del_student(request):
 
 def modal_add_class(request):
     title = request.POST.get('title')
-    print(title)
     if len(title)>0:
         sqlhelper.modify('insert into class(title) values(%s) ',[title,])
         return HttpResponse('ok')
-
     else:
         return HttpResponse('不ok')
 
