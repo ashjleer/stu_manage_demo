@@ -67,7 +67,8 @@
             <input type="submit" value="提交" onclick="AjaxSend()"/>
 
 </div>
-<script src="/static/jquery-3.4.1.js"></script>
+<script type="text/javascript/" src="/static/js/jquery-3.4.1.js"></script>
+
 <script>
     function showModal(){
         document.getElementById('shadow').classList.remove('hide')
@@ -84,9 +85,9 @@
                 //当服务端处理完成后，返回数据时该函数自动调用，data表示服务端返回的值
                 console.log(data);
                 if (data == "ok"){
-                    alert("添加成功！");
+                    alert('添加成功！');
                 } else{
-                    alert("添加失败！");
+                    alert('添加失败！');
                 }
             }
         })

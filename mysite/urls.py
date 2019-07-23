@@ -19,14 +19,14 @@ from app import views
 
 urlpatterns = [
     url('^admin/', admin.site.urls),
-    url(r'^classes',views.classes),
-    url(r'^add_class', views.add_class),
-    url(r'^del_class', views.del_class),
-    url(r'^edit_class', views.edit_class),
-    url(r'^students', views.students),
-    url(r'^add_student', views.add_student),
-    url(r'^edit_student', views.edit_student),
-    url(r'^del_student', views.del_student),
-    url(r'^modal_add_class', views.modal_add_class),
+    url(r'^classes/',views.classes),
+    url(r'^add_class/', views.add_class),
+    url(r'^del_class/', views.del_class),
+    url(r'^edit_class/', views.edit_class),
+    url(r'^students/', views.students),
+    url(r'^add_student/', views.add_student),
+    url(r'^edit_student/', views.edit_student),
+    url(r'^del_student/', views.del_student),
+    url(r'^modal_add_class/', views.modal_add_class),
 
 ]
