@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 import pymysql
 def classes(request):
 
@@ -22,13 +22,16 @@ def add_class(request):
     else:
         print(request.POST)
         v = request.POST.get('title')
-        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='root', db='db666', charset='utf8')
-        cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-        cursor.execute("insert into class(title) values(%s)",[v,])
-        conn.commit()
-        cursor.close()
-        conn.close()
-        return redirect('/classes/')
+        if len(v)>0:
+            conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='root', db='db666', charset='utf8')
+            cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
+            cursor.execute("insert into class(title) values(%s)",[v,])
+            conn.commit()
+            cursor.close()
+            conn.close()
+            return redirect('/classes/')
+        else:
+            return render(request,'add_class.html',{'msg':'班级名称不能为空'})
 
 def del_class(request):
     nid = request.GET.get('nid')
@@ -126,4 +129,17 @@ def del_student(request):
     cursor.close()
     conn.close()
     return  redirect('/students/')
+
+
+####################对话框#############################
+
+def modal_add_class(request):
+    title = request.POST.get('title')
+    print(title)
+    if len(title)>0:
+        sqlhelper.modify('insert into class(title) values(%s) ',[title,])
+        return HttpResponse('ok')
+
+    else:
+        return HttpResponse('不ok')
 

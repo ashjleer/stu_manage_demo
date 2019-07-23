@@ -3,11 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <style>
+        .hide{
+            display: none;
+        }
+        .shadow{
+            position: fixed;
+            left: 0;
+            top: 0;
+            right:0;
+            bottom: 0;
+            background-color: black;
+            opacity: 0.4;
+            z-index: 999;
+        }
+        .model{
+            z-index: 1000;
+            position: fixed;
+            left: 50%;
+            top:50%;
+            height: 300px;
+            width: 400px;
+            background-color: white;
+            margin-left: -200px;
+            margin-top: -150px;
+        }
+    </style>
 </head>
 <body>
 <h1>班级列表</h1>
 <div>
     <a href="/add_class/">添加</a>
+    <a onclick="showModal();">对话框添加</a>
 </div>
 <table>
     <thead>
@@ -30,5 +57,40 @@
 
     </tbody>
 </table>
+
+<div id="shadow" class="shadow hide" ></div>
+<div id="model" class="model hide" >
+
+        <p>
+            <input id="title" type="text" name="title"/>
+        </p>
+            <input type="button" value="提交" onclick="AjaxSend();"/>
+
+</div>
+<script src="/static/jquery-3.4.1.js"></script>
+<script>
+    function showModal(){
+        document.getElementById('shadow').classList.remove('hide')
+        document.getElementById('model').classList.remove('hide')
+
+    }
+
+    function AjaxSend() {
+        $.ajax({
+            url:'/modal_add_class/',
+            type:'POST',
+            data:{'title':$('#title').val()},
+            success:function (data) {
+                //当服务端处理完成后，返回数据时该函数自动调用，data表示服务端返回的值
+                console.log(data);
+                if (data=="ok"){
+                    alert("添加成功！");
+                } else{
+                    alert("添加失败！");
+                }
+            }
+        })
+    }
+</script>
 </body>
 </html>
