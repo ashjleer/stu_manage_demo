@@ -34,7 +34,7 @@
 <h1>班级列表</h1>
 <div>
     <a href="/add_class/">添加</a>
-    <a onclick="showModal()">对话框添加</a>
+    <a onclick="showModal();">对话框添加</a>
 </div>
 <table>
     <thead>
@@ -60,15 +60,16 @@
 
 <div id="shadow" class="shadow hide" ></div>
 <div id="model" class="model hide" >
+<script src="ttp://libs.baidu.com/jquery/2.1.4/jquery.min.jsh"></script>
 
         <p>
            班级名称 <input id="title" type="text" name="title"/>
         </p>
-            <input type="submit" value="提交" onclick="AjaxSend()"/>
+            <input type="submit" value="提交" onclick="AjaxSend();"/>
 
 </div>
-<script type="text/javascript/" src="/static/js/jquery-3.4.1.js"></script>
 
+</body>
 <script>
     function showModal(){
         document.getElementById('shadow').classList.remove('hide')
@@ -76,11 +77,11 @@
 
     }
 
-    function AjaxSend() {
+    function AjaxSend(){
         $.ajax({
             url:'/modal_add_class/',
             type:'POST',
-            data:{'title':$('#title').val()},
+            data:{'title':$("#title").val()},
             success:function (data) {
                 //当服务端处理完成后，返回数据时该函数自动调用，data表示服务端返回的值
                 console.log(data);
@@ -93,5 +94,4 @@
         })
     }
 </script>
-</body>
 </html>
