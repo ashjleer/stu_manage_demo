@@ -51,6 +51,8 @@
             <td>{{ row.title }}</td>
             <td><a href="/edit_class/?nid={{ row.id }}">编辑</a>
                 |
+                <a onclick="ModalEdit(this);">对话框编辑</a>
+                |
             <a href="/del_class/?nid={{ row.id }}">删除</a></td>
         </tr>
     {% endfor %}
@@ -71,6 +73,22 @@
 
 </div>
 
+
+<div id="EditModal" class="model hide" >
+    <h3>编辑框</h3>
+        <p>
+             <input id="EditId" type="text" name="id" style="display: none"/>
+            班级名称 <input id="EditTitle" type="text" name="title"/>
+        </p>
+    <input type="submit" value="提交" onclick="editAjaxSend();"/> <span id="errormsg"></span>
+    <input type="submit" value="取消" onclick="CancelModal();"/>
+
+
+</div>
+
+
+
+
 </body>
 <script>
     function showModal(){
@@ -82,6 +100,8 @@
     function CancelModal(){
         document.getElementById('shadow').classList.add('hide')
         document.getElementById('model').classList.add('hide')
+        document.getElementById('EditModal').classList.add('hide')
+
     }
 
     function AjaxSend(){
@@ -99,6 +119,43 @@
                 }
             }
         })
+    }
+
+    function ModalEdit(ths) {
+        document.getElementById('shadow').classList.remove('hide')
+        document.getElementById('EditModal').classList.remove('hide')
+        //1.获取当前点击标签
+        //2.获取当前标签的父标签，再找其上方标签
+        //3.获取班级当前行，班级名称，赋值到对话框中
+        var row = $(ths).parent().prevAll();
+        var content = $(row[0]).text()
+        $('#EditTitle').val(content);
+
+        var contentid = $(row[1]).text()
+        $('#EditId').val(contentid);
+    }
+
+    function editAjaxSend() {
+        var nid = $('#EditId').val()
+        var content = $('#EditTitle').val()
+        console.log(nid,content)
+
+        $.ajax({
+            url:'/modal_edit_class/',
+            type: 'POST',
+            data:{'nid':nid,'content':content},
+            success:function (arg) {
+                //JSON.stringify()      //对象转变为字符串
+                //JSON.parse()            //字符串转变为对象
+                arg = JSON.parse(arg);
+                if(arg.status){
+                    location.reload()
+                }else{
+                    alert(arg.message);
+                }
+            }
+        })
+
     }
 </script>
 </html>

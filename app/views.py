@@ -141,3 +141,16 @@ def modal_add_class(request):
     else:
         return HttpResponse('班级名称不能为空')
 
+
+
+def modal_edit_class(request):
+    ret = {'status':True,'message':None}
+    try:
+        nid = request.POST.get('nid')
+        content = request.POST.get('content')
+        sqlhelper.modify('update class set title=%s where id=%s',[content,nid,])
+    except Exception as e:
+        ret['status'] = False
+        ret['message'] = str(e)
+    import  json
+    return HttpResponse(json.dumps(ret))
