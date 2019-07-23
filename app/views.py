@@ -153,3 +153,4 @@ def modal_edit_class(request):
         ret['message'] = str(e)
     import  json
     return HttpResponse(json.dumps(ret))
+3
