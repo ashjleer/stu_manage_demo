@@ -60,12 +60,14 @@
 
 <div id="shadow" class="shadow hide" ></div>
 <div id="model" class="model hide" >
-<script src="ttp://libs.baidu.com/jquery/2.1.4/jquery.min.jsh"></script>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 
         <p>
            班级名称 <input id="title" type="text" name="title"/>
         </p>
-            <input type="submit" value="提交" onclick="AjaxSend();"/>
+    <input type="submit" value="提交" onclick="AjaxSend();"/> <span id="errormsg"></span>
+    <input type="submit" value="取消" onclick="CancelModal();"/>
+
 
 </div>
 
@@ -77,6 +79,11 @@
 
     }
 
+    function CancelModal(){
+        document.getElementById('shadow').classList.add('hide')
+        document.getElementById('model').classList.add('hide')
+    }
+
     function AjaxSend(){
         $.ajax({
             url:'/modal_add_class/',
@@ -86,9 +93,9 @@
                 //当服务端处理完成后，返回数据时该函数自动调用，data表示服务端返回的值
                 console.log(data);
                 if (data == "ok"){
-                    alert('添加成功！');
+                    location.href='/classes/';
                 } else{
-                    alert('添加失败！');
+                    $('#errormsg').text(data);
                 }
             }
         })

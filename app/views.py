@@ -139,5 +139,5 @@ def modal_add_class(request):
         sqlhelper.modify('insert into class(title) values(%s) ',[title,])
         return HttpResponse('ok')
     else:
-        return HttpResponse('不ok')
+        return HttpResponse('班级名称不能为空')
 
