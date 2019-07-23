@@ -131,7 +131,7 @@ def del_student(request):
     return  redirect('/students/')
 
 
-####################对话框#############################
+####################对话框#########################
 
 def modal_add_class(request):
     title = request.POST.get('title')
