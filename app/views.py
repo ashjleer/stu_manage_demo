@@ -187,6 +187,7 @@ def modal_edit_student(request):
     return HttpResponse(json.dumps(ret))
 
 
-
-
-
+################多对多教师表###############
+def teachers(request):
+    teacher_list = sqlhelper.get_list('select id,name from teacher',[])
+    return render(request,'teacher.html',{'teacher_list':teacher_list})

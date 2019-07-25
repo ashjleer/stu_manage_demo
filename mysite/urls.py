@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^modal_edit_class/', views.modal_edit_class),
     url(r'^modal_add_student/', views.modal_add_student),
     url(r'^modal_edit_student/', views.modal_edit_student),
+    url(r'^teachers/', views.teachers),
 
 ]
