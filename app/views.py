@@ -80,7 +80,7 @@ def students(request):
     #select student.id, student.name,class .title from student LEFT JOIN class on student.class_id = class.id
     conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='root', db='db666', charset='utf8')
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-    cursor.execute("select student.id, student.name,class .title from student LEFT JOIN class on student.class_id = class.id")
+    cursor.execute("select student.id, student.name,student.class_id,class .title from student LEFT JOIN class on student.class_id = class.id")
     students_list =cursor.fetchall()
     cursor.close()
     conn.close()
@@ -166,6 +166,20 @@ def modal_add_student(request):
         name = request.POST.get('name')
         class_id = request.POST.get('class_id')
         sqlhelper.modify('insert into student(name,class_id) values(%s,%s)',[name,class_id,])
+    except Exception as e:
+        ret['status'] = False
+        ret['message'] = str(e)
+
+    return HttpResponse(json.dumps(ret))
+
+
+def modal_edit_student(request):
+    ret = {'status': True, 'message': None}
+    try:
+        nid = request.POST.get('nid')
+        name = request.POST.get('name')
+        class_id = request.POST.get('class_id')
+        sqlhelper.modify('update student set name=%s,class_id=%s where id=%s',[name,class_id,nid,])
     except Exception as e:
         ret['status'] = False
         ret['message'] = str(e)
