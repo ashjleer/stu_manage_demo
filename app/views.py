@@ -1,5 +1,8 @@
 from django.shortcuts import render,redirect,HttpResponse
 import pymysql
+import json
+
+
 def classes(request):
 
 
@@ -81,7 +84,10 @@ def students(request):
     students_list =cursor.fetchall()
     cursor.close()
     conn.close()
-    return render(request,'students.html',{'student_list':students_list})
+
+    class_list = sqlhelper.get_list('select id,title from class',[])
+
+    return render(request,'students.html',{'student_list':students_list,'class_list':class_list})
 
 
 def add_student(request):
@@ -151,5 +157,22 @@ def modal_edit_class(request):
     except Exception as e:
         ret['status'] = False
         ret['message'] = str(e)
-    import  json
     return HttpResponse(json.dumps(ret))
+
+
+def modal_add_student(request):
+    ret = {'status':True,'message':None}
+    try :
+        name = request.POST.get('name')
+        class_id = request.POST.get('class_id')
+        sqlhelper.modify('insert into student(name,class_id) values(%s,%s)',[name,class_id,])
+    except Exception as e:
+        ret['status'] = False
+        ret['message'] = str(e)
+
+    return HttpResponse(json.dumps(ret))
+
+
+
+
+
